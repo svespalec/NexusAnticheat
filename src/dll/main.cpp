@@ -1,6 +1,7 @@
+#include "core/anticheat_manager.hpp"
 #include <Windows.h>
 
-BOOL APIENTRY DllMain( HMODULE module, DWORD reason, LPVOID reserved )
+BOOL APIENTRY DllMain( HMODULE module, DWORD reason, [[maybe_unused]] LPVOID reserved )
 {
 	if ( reason == DLL_PROCESS_ATTACH )
 	{
