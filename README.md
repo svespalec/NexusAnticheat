@@ -1,112 +1,44 @@
 # NexusAnticheat
 
-A comprehensive anti-cheat solution designed to protect game integrity through advanced detection and prevention mechanisms.
+An anti-cheat solution designed to protect game integrity through detection and prevention mechanisms.
 
-## Project Structure
+## Components
 
-The project is organized into several components, each serving a specific purpose:
+- **nexus-dll**: Core anti-cheat library (DLL)
+- **nexus-launcher**: Game launcher and integrity verifier
+- **nexus-game**: Test game implementation
+- **nexus-cheat**: Test cheat for validation
 
-### Components
+## Build Requirements
 
-- **nexus-dll** - Core Anti-cheat Library
-  - Implements the core anti-cheat functionality
-  - Handles memory scanning and protection
-  - Uses MinHook for function hooking
-  - Built as a shared library (DLL)
-
-- **nexus-launcher** - Game Launcher
-  - Handles secure game launching
-  - Verifies game integrity
-  - Manages anti-cheat injection
-  - Built as an executable
-
-- **nexus-game** - Test Game
-  - Simple game implementation for testing
-  - Demonstrates anti-cheat integration
-  - Includes basic player mechanics
-  - Built as an executable
-
-- **nexus-cheat** - Test Cheat
-  - Test cheat implementation
-  - Used for testing detection mechanisms
-  - Helps validate anti-cheat effectiveness
-  - Built as a shared library (DLL)
-
-### Build System
-
-The project uses CMake as its build system with the following configuration:
-
-- C++20 standard across all components
-- MSVC compiler optimizations
-- Static runtime linking
-- MinHook as an external dependency
-- Separate CMakeLists.txt for each component
-
-### Dependencies
-
-- **MinHook**: Function hooking library
-  - Automatically fetched and built by CMake
-  - Used for API hooking and interception
-  - Built as a static library
+- Visual Studio 2022
+- CMake 3.15+
+- Windows SDK 10.0+
 
 ## Building
 
-### Requirements
+### Option 1: Visual Studio (Recommended)
+1. Open the project folder in Visual Studio 2022
+2. VS will automatically configure CMake
+3. Select your configuration (Test/Production)
+4. Build -> Build All
 
-- Visual Studio 2022
-- CMake 3.15 or higher
-- Windows SDK 10.0 or higher
-
-### Build Steps
-
-1. Clone the repository:
+### Option 2: CMake Command Line
 ```bash
-git clone https://github.com/yourusername/NexusAnticheat.git
-cd NexusAnticheat
+cmake -B build -G "Visual Studio 17 2022" -A x64
+cmake --build build --config Production
 ```
 
-2. Open in Visual Studio:
-- Open Visual Studio 2022
-- File -> Open -> CMake
-- Select the root CMakeLists.txt
-
-3. Build the solution:
-- Select your desired configuration (Test/Production)
-- Build -> Build All
-
-### Output
-
-All binaries will be placed in the `bin` directory under your build folder:
-- nexus-dll.dll
-- nexus-launcher.exe
-- nexus-game.exe
-- nexus-cheat.dll
-
-## Development
-
-### Project Guidelines
-
-- Use consistent code formatting
-- Follow C++20 best practices
-- Document public APIs
-- Write unit tests for new features
-
-### Directory Structure
+## Project Structure
 
 ```
 NexusAnticheat/
-├── CMakeLists.txt          # Root CMake configuration
-├── external/               # External dependencies
-├── nexus-dll/             # Core anti-cheat library
-│   ├── CMakeLists.txt
-│   └── src/
-├── nexus-launcher/        # Game launcher
-│   ├── CMakeLists.txt
-│   └── src/
-├── nexus-game/           # Test game
-│   ├── CMakeLists.txt
-│   └── src/
-└── nexus-cheat/         # Test cheat
-    ├── CMakeLists.txt
-    └── src/
+├── CMakeLists.txt
+├── external/           # Dependencies (MinHook)
+├── nexus-dll/         # Core anti-cheat
+├── nexus-launcher/    # Game launcher
+├── nexus-game/        # Test game
+└── nexus-cheat/       # Test cheat
 ```
+
+Build outputs will be in `bin/` directory.
