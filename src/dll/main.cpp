@@ -38,7 +38,7 @@ bool setup_anticheat()
 
 	if ( !manager.enable_feature( nexus::hash::feature_hashes::memory_check ) )
 		return false;
-
+	
 	// set custom scan interval (optional)
 	manager.set_scan_interval( std::chrono::milliseconds( 2500 ) );
 

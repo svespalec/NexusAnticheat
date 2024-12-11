@@ -13,7 +13,7 @@ if(MSVC)
     string(REGEX REPLACE "/W[0-4]" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     
     # Add our warning and compiler flags
-    add_compile_options(/W4 /EHsc /permissive-)
+    add_compile_options(/W4 /EHsc /permissive- /MP)
 
     # Configure build types
     set(CMAKE_CONFIGURATION_TYPES "Test;Production" CACHE STRING "" FORCE)
