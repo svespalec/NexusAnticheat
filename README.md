@@ -8,12 +8,14 @@ An anti-cheat solution designed to protect game integrity through detection and 
 - **nexus-launcher**: Game launcher and integrity verifier
 - **nexus-game**: Test game implementation
 - **nexus-cheat**: Test cheat for validation
+- **nexus-driver**: Kernel-mode driver for system-level protection
 
 ## Build Requirements
 
 - Visual Studio 2022
 - CMake 3.15+
 - Windows SDK 10.0+
+- Windows Driver Kit (WDK) 10
 
 ## Building
 
@@ -38,7 +40,8 @@ NexusAnticheat/
 ├── nexus-dll/         # Core anti-cheat
 ├── nexus-launcher/    # Game launcher
 ├── nexus-game/        # Test game
-└── nexus-cheat/       # Test cheat
+├── nexus-cheat/       # Test cheat
+└── nexus-driver/      # Kernel driver
 ```
 
 Build outputs will be in `bin/` directory.
