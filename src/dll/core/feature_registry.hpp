@@ -21,6 +21,7 @@ public:
 	{
 		return enabled_;
 	}
+
 	void set_enabled( bool state )
 	{
 		enabled_ = state;

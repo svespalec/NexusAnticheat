@@ -131,21 +131,22 @@ private:
 	std::unordered_map<uint64_t, std::unique_ptr<feature_base>> features_;
 	std::unique_ptr<std::thread>                                scan_thread_;
 
+	void check_features()
+	{
+		std::lock_guard<std::mutex> lock( mutex_ );
+
+		for ( auto& [_, feature] : features_ )
+		{
+			if ( feature && feature->is_enabled() )
+				feature->run_check();
+		}
+	}
+
 	void scan_routine()
 	{
 		while ( should_run_ )
 		{
-			{
-				std::lock_guard<std::mutex> lock( mutex_ );
-				for ( auto& [_, feature] : features_ )
-				{
-					if ( feature && feature->is_enabled() )
-					{
-						feature->run_check();
-					}
-				}
-			}
-
+			check_features();
 			std::this_thread::sleep_for( scan_interval_ );
 		}
 	}

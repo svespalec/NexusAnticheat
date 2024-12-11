@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <memory>
 #include <vector>
+#include <utils/logger.hpp>
 
 namespace nexus::checks
 {
@@ -27,7 +28,7 @@ public:
 		// Implement memory checking logic
 		scan_protected_regions();
 		check_memory_integrity();
-	
+
 		return true;
 	}
 
@@ -39,12 +40,12 @@ public:
 private:
 	void scan_protected_regions()
 	{
-		// Implementation
+		log_info( "scan_protected_regions" );
 	}
 
 	void check_memory_integrity()
 	{
-		// Implementation
+		log_info( "check_memory_integrity" );
 	}
 };
 
