@@ -42,6 +42,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
+# Add MinHook
+include(FetchContent)
+FetchContent_Declare(
+    minhook
+    GIT_REPOSITORY https://github.com/TsudaKageyu/minhook.git
+    GIT_TAG master
+)
+FetchContent_MakeAvailable(minhook)
+
 # Find all source files for the executable
 file(GLOB_RECURSE EXE_SOURCES 
     "src/exe/*.cpp"
@@ -65,4 +74,8 @@ add_library(NexusAnticheatDLL SHARED ${DLL_SOURCES})
 # Add include directories
 target_include_directories(NexusAnticheatDLL PRIVATE 
     ${CMAKE_SOURCE_DIR}/src/dll
+    ${minhook_SOURCE_DIR}/include
 )
+
+# Link MinHook
+target_link_libraries(NexusAnticheatDLL PRIVATE minhook)
