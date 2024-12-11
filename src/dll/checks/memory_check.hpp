@@ -1,9 +1,11 @@
 #pragma once
-#include "../core/feature_registry.hpp"
+
 #include <Windows.h>
 #include <memory>
 #include <vector>
 #include <utils/logger.hpp>
+#include <utils/report_manager.hpp>
+#include "../core/feature_registry.hpp"
 
 namespace nexus::checks
 {
@@ -12,20 +14,23 @@ class memory_check final : public feature_base
 public:
 	static constexpr uint64_t feature_hash = hash::feature_hashes::memory_check;
 
+	memory_check()           = default;
+	~memory_check() override = default;
+
 	bool initialize() override
 	{
-		// Initialize memory checking resources
+		log_info( "initializing memory check" );
+
 		return true;
 	}
 
 	void shutdown() override
 	{
-		// Cleanup resources
+		log_info( "shutting down memory check" );
 	}
 
 	bool run_check() override
 	{
-		// Implement memory checking logic
 		scan_protected_regions();
 		check_memory_integrity();
 
@@ -41,11 +46,17 @@ private:
 	void scan_protected_regions()
 	{
 		log_info( "scan_protected_regions" );
+
+		// example flag for testing
+		report::report_manager::get_instance().add_flag( ".text section patched" );
 	}
 
 	void check_memory_integrity()
 	{
 		log_info( "check_memory_integrity" );
+
+		// example flag for testing
+		report::report_manager::get_instance().add_flag( "memory integrity violation" );
 	}
 };
 

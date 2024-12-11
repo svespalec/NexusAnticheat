@@ -2,6 +2,7 @@
 #include "checks/memory_check.hpp"
 #include <Windows.h>
 #include "utils/logger.hpp"
+#include "utils/report_manager.hpp"
 
 bool setup_anticheat()
 {
@@ -46,6 +47,8 @@ BOOL APIENTRY DllMain( HMODULE module, DWORD reason, [[maybe_unused]] LPVOID res
 	case DLL_PROCESS_DETACH:
 		// cleanup anticheat
 		nexus::anticheat_manager::get_instance().shutdown();
+		nexus::report::report_manager::get_instance().shutdown();
+		nexus::log::logger::shutdown();
 		break;
 	}
 
