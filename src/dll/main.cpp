@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include "utils/logger.hpp"
 #include "utils/report_manager.hpp"
+#include "checks/tls_callback.hpp"
 
 bool setup_anticheat()
 {

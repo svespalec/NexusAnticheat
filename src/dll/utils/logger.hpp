@@ -19,11 +19,17 @@ enum class level
 	detection
 };
 
+static std::atomic<bool> initialized{};
+
 class logger
 {
 public:
 	static bool initialize()
 	{
+		if ( initialized )
+			return true;
+
+
 		if ( !AllocConsole() )
 			return false;
 
@@ -48,6 +54,8 @@ public:
 
 		SetConsoleTitleA( "Nexus Anticheat [DEBUG]" );
 
+		initialized = true;
+
 		return true;
 	}
 
@@ -66,6 +74,9 @@ public:
 	static void print( level log_level, [[maybe_unused]] const char* func_name, const char* fmt, Args... args )
 	{
 		std::lock_guard<std::mutex> lock( get_mutex() );
+
+		if ( !initialized )
+			return;
 
 		const auto timestamp = get_timestamp();
 		const auto message   = std::vformat( fmt, std::make_format_args( args... ) );
