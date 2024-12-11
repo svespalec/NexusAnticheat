@@ -1,14 +1,11 @@
 #include <Windows.h>
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
+BOOL APIENTRY DllMain( HMODULE module, DWORD reason, LPVOID reserved )
 {
-    switch (ul_reason_for_call)
-    {
-    case DLL_PROCESS_ATTACH:
-        DisableThreadLibraryCalls(hModule);
-        break;
-    case DLL_PROCESS_DETACH:
-        break;
-    }
-    return TRUE;
+	if ( reason == DLL_PROCESS_ATTACH )
+	{
+		DisableThreadLibraryCalls( module );
+	}
+
+	return TRUE;
 }

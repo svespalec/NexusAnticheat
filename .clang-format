@@ -1,0 +1,68 @@
+---
+Language: Cpp
+# Basic Style
+BasedOnStyle: Microsoft
+UseTab: ForIndentation
+TabWidth: 2
+IndentWidth: 2
+ColumnLimit: 0
+
+# Braces
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterEnum: true
+  AfterStruct: true
+  AfterClass: true
+  AfterFunction: true
+  AfterControlStatement: true
+  BeforeElse: true
+  BeforeCatch: true
+  BeforeWhile: true
+
+# Alignment
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignConsecutiveMacros: true
+AlignEscapedNewlines: Right
+AlignOperands: true
+AlignTrailingComments: true
+
+# Spaces
+SpaceAfterCStyleCast: false
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesInCStyleCastParentheses: false
+SpacesInParentheses: true
+SpacesInSquareBrackets: false
+
+# Line Breaks
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakAfterReturnType: None
+BinPackArguments: false
+BinPackParameters: false
+BreakBeforeBinaryOperators: None
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeColon
+
+# Comments
+CommentPragmas: '^ IWYU pragma:'
+FixNamespaceComments: false
+ReflowComments: false
+
+# Other
+Cpp11BracedListStyle: false
+DerivePointerAlignment: false
+PointerAlignment: Left
+SortIncludes: false
+SortUsingDeclarations: false
+MaxEmptyLinesToKeep: 2
+
+# Preprocessor
+IndentPPDirectives: None

@@ -32,15 +32,22 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Executable project
-add_executable(NexusAnticheat 
-    "src/exe/main.cpp"
-    "src/exe/main.h"
+# Find all source files for the executable
+file(GLOB_RECURSE EXE_SOURCES 
+    "src/exe/*.cpp"
+    "src/exe/*.hpp"
+    "src/exe/*.h"
 )
+
+# Find all source files for the DLL
+file(GLOB_RECURSE DLL_SOURCES
+    "src/dll/*.cpp"
+    "src/dll/*.hpp"
+    "src/dll/*.h"
+)
+
+# Executable project
+add_executable(NexusAnticheat ${EXE_SOURCES})
 
 # DLL project
-add_library(NexusAnticheatDLL SHARED
-    "src/dll/main.cpp"
-)
-
-
+add_library(NexusAnticheatDLL SHARED ${DLL_SOURCES})

@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Executable",
+            "type": "shell",
+            "command": "cmake --build ${command:cmake.buildDirectory} --target NexusAnticheat",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build DLL",
+            "type": "shell",
+            "command": "cmake --build ${command:cmake.buildDirectory} --target NexusAnticheatDLL",
+            "group": "build"
+        },
+        {
+            "label": "Build All",
+            "type": "shell",
+            "command": "cmake --build ${command:cmake.buildDirectory}",
+            "group": "build"
+        }
+    ]
+}

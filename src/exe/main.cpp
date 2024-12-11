@@ -5,6 +5,6 @@
 
 int main()
 {
-    std::cout << "NexusAnticheat started" << std::endl;
-    return 0;
+	std::cout << "NexusAnticheat started!" << std::endl;
+	return 0;
 }
