@@ -12,7 +12,7 @@ namespace nexus::checks
 #pragma optimize( "", off )
 EXTERN_C const
     VOID WINAPI
-    thread_callback( PVOID dll_handle, DWORD reason, PVOID reserved )
+    thread_callback( [[maybe_unused]] PVOID dll_handle, DWORD reason, [[maybe_unused]] PVOID reserved )
 {
 	if ( reason == DLL_PROCESS_ATTACH || reason == DLL_THREAD_ATTACH )
 	{

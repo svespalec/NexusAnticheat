@@ -1,11 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
 
-# Enable Hot Reload for MSVC compilers if supported.
-if (POLICY CMP0141)
-  cmake_policy(SET CMP0141 NEW)
-  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
-endif()
-
 project("NexusAnticheat")
 
 # Set C++20 standard for all projects
@@ -20,10 +14,21 @@ if(MSVC)
     
     # Add our warning and compiler flags
     add_compile_options(/W4 /EHsc /permissive-)
+
+    # Configure build types
+    set(CMAKE_CONFIGURATION_TYPES "Test;Production" CACHE STRING "" FORCE)
+    
+    # Test configuration (Debug with symbols)
+    set(CMAKE_C_FLAGS_TEST "${CMAKE_C_FLAGS_DEBUG} /Z7")
+    set(CMAKE_CXX_FLAGS_TEST "${CMAKE_CXX_FLAGS_DEBUG} /Z7")
+    
+    # Production configuration (Release with no debug info)
+    set(CMAKE_C_FLAGS_PRODUCTION "${CMAKE_C_FLAGS_RELEASE} /DNDEBUG")
+    set(CMAKE_CXX_FLAGS_PRODUCTION "${CMAKE_CXX_FLAGS_RELEASE} /DNDEBUG")
 endif()
 
 # Set static runtime for all projects
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Test>:Debug>")
 
 # Remove the /MD and /MDd flags before adding /MT
 string(REPLACE "/MD" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
@@ -44,12 +49,26 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
 # Add MinHook
 include(FetchContent)
+
+# Setup external dependencies cache
+set(FETCHCONTENT_BASE_DIR "${CMAKE_SOURCE_DIR}/external/cache")
+
+# Configure MinHook
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE) # Force static build
 FetchContent_Declare(
     minhook
     GIT_REPOSITORY https://github.com/TsudaKageyu/minhook.git
     GIT_TAG master
+    GIT_SHALLOW TRUE
 )
+
+# Make MinHook available
 FetchContent_MakeAvailable(minhook)
+
+# Disable warnings for MinHook
+if(MSVC)
+    target_compile_options(minhook PRIVATE /W0)
+endif()
 
 # Find all source files for the executable
 file(GLOB_RECURSE EXE_SOURCES 
@@ -77,5 +96,5 @@ target_include_directories(NexusAnticheatDLL PRIVATE
     ${minhook_SOURCE_DIR}/include
 )
 
-# Link MinHook
+# Link MinHook - using the correct target name
 target_link_libraries(NexusAnticheatDLL PRIVATE minhook)
